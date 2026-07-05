@@ -1,13 +1,13 @@
 package command
 
 import command.handler.*
-import repository.{InMemoryTaskRepository, TaskRepository}
+import repository.{JsonFileTaskRepository, TaskRepository}
 
 trait CommandHandler[C <: Command]:
   def handle(command: C): Unit
 
 object CommandHandler:
-  private val repository: TaskRepository = InMemoryTaskRepository()
+  private val repository: TaskRepository = JsonFileTaskRepository()
 
   def handle(command: Command): Unit =
     command match {
