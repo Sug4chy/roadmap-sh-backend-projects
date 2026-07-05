@@ -6,8 +6,7 @@ import scala.io.AnsiColor.*
 def main(args: String*): Unit =
   try {
     val parsedCommand = Command.parseFromArgs(args.toArray)
-    val handler = CommandHandler.`for`(parsedCommand)
-    handler.handle(parsedCommand)
+    CommandHandler.handle(parsedCommand)
   } catch {
     case ex: IllegalArgumentException =>
       println(s"${RED}Invalid input. Please check your arguments and try again.$RESET")

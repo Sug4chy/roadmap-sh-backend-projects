@@ -1,5 +1,6 @@
 package repository
 
+import enums.TaskStatus
 import model.Task
 
 import scala.collection.mutable
@@ -8,8 +9,10 @@ import scala.collection.mutable.ListBuffer
 class InMemoryTaskRepository extends TaskRepository:
   private val tasks: mutable.ListBuffer[Task] = ListBuffer[Task]()
 
-  override def findAll(): Array[Task] =
-    tasks.toArray
+  override def findAll(statusFilter: Option[TaskStatus] = None): Array[Task] =
+    tasks
+      .filter(t => if statusFilter.isDefined then t.status == statusFilter.get else true)
+      .toArray
 
   override def findByID(id: Int): Option[Task] =
     tasks.find(_.id == id)
